@@ -1,7 +1,6 @@
 import os, sys
 
-comm_list = ["qsub", 
-"-pe openmpi 4-8", 
+comm_list = ["qsub",
 "-t 1-5"]
 
 comm_list.append(sys.argv[1])
