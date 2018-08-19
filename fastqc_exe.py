@@ -10,8 +10,7 @@ def execute(command):
 
 def main():
     start = datetime.now()
-    data_path = os.path.abspath("/ifs/data/proteomics/projects\
-    /L1_rnaseq/fastq")
+    data_path = os.path.abspath("/ifs/data/proteomics/projects/L1_rnaseq/fastq")
     home_path = os.path.abspath("..")
 
     outputs_path = os.path.join(home_path, "fastqcOutputs")
@@ -25,11 +24,11 @@ def main():
     batch_size = mp.cpu_count()
     n_batch = int(sys.argv[1])
     f_start = batch_size * n_batch
-    f_end = max(batch_size * (n_batch + 1), len(file_names))
+    f_end = min(batch_size * (n_batch + 1), len(file_names))
     try:
         batch_files = file_names[f_start:f_end]
     except IndexError:
-        print(IndentationError.text)
+        print("Error raised!")
         return
 
     pool = mp.Pool(mp.cpu_count())

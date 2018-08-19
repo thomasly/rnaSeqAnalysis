@@ -2,7 +2,7 @@ import os, sys
 
 for t in range(5):
     command = "qsub " + sys.argv[1].strip() + " " + str(t)
-    
+    print("command: {}".format(command))
 # comm_list = ["qsub", "-t 1-5"]
 
 # comm_list.append(sys.argv[1].strip())
