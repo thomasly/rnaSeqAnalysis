@@ -1,3 +1,6 @@
+# ms vscode
+.vscode/
+
 # -*- mode: gitignore; -*-
 *~
 \#*\#
@@ -46,12 +49,6 @@ flycheck_*.el
 
 # Anoying Mac
 .DS_Store
-
-# Bash scrips
-*.sh
-
-# qsub scripts
-*_qsub.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
