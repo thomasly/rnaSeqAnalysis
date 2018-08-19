@@ -1,8 +1,8 @@
 import os, sys
 
 comm_list = ["qsub", 
-"-pe openmid 4-8", 
-"-t 1-4"]
+"-pe openmpi 4-8", 
+"-t 1-5"]
 
 comm_list.append(sys.argv[1])
 
