@@ -23,7 +23,7 @@ def main():
     fastq_ext = os.path.join(data_path, "*.fastq.gz")
     file_names = glob(fastq_ext)
     batch_size = mp.cpu_count()
-    n_batch = int(sys.argv[1]) - 1
+    n_batch = int(sys.argv[1])
     f_start = batch_size * n_batch
     f_end = max(batch_size * (n_batch + 1), len(file_names))
     try:
