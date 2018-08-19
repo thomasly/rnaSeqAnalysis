@@ -5,7 +5,6 @@ from datetime import datetime
 
 def execute(command):
     pid = os.getpid()
-    print("pid: {}".format(pid))
     os.system(command)
 
 def main():
@@ -28,7 +27,7 @@ def main():
     try:
         batch_files = file_names[f_start:f_end]
     except IndexError:
-        print("Error raised!")
+        print("IndexError raised!")
         return
 
     pool = mp.Pool(mp.cpu_count())
