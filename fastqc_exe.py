@@ -5,7 +5,7 @@ from datetime import datetime
 
 def execute(command):
     pid = os.getpid()
-    logging.info("pid: {}".format(pid))
+    print("pid: {}".format(pid))
     os.system(command)
 
 def main():
@@ -29,9 +29,10 @@ def main():
     try:
         batch_files = file_names[f_start:f_end]
     except IndexError:
+        print(IndentationError.text)
         return
 
-    pool = mp.Pool(mp.cpu_count()*8)
+    pool = mp.Pool(mp.cpu_count())
 
     tasks = []
     for f in batch_files:
@@ -43,7 +44,7 @@ def main():
     pool.join()
 
     end = datetime.now()
-    logging.info("Time consumed: {}".format(end - start))
+    print("Time consumed: {}".format(end - start))
 
 if __name__ == "__main__":
     main()
