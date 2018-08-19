@@ -8,4 +8,4 @@
 module load fastqc
 module load python/3.6.4
 
-python fastqc_exe.py $SGE_TASK_ID
+python3 fastqc_exe.py $SGE_TASK_ID
