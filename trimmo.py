@@ -22,14 +22,17 @@ def find_inputs(path):
     paired_files = []
     # find paired files
     while files:
-        # save the path
-        f1 = files[0]
+        # find the forward file, save file name, remove it from files array
+        f1 = None
+        for f, idx in files:
+            if "R1" in f:
+                f1 = f
+                files.pop(idx)
+                break
         # get file name
         f1_base = os.path.basename(f1)
         # the indentical part in the file names of the paired files
         pair_id = f1_base.split(".")[0][:-7]
-        # remove f1 to avoid duplicate
-        files.pop(0)
         for idx, f2 in enumerate(files):
             if pair_id in f2:
                 paired_files.append(tuple((f1, f2)))
