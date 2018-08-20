@@ -24,7 +24,7 @@ def find_inputs(path):
     while files:
         # find the forward file, save file name, remove it from files array
         f1 = None
-        for f, idx in enumerate(files):
+        for idx, f in enumerate(files):
             if "R1" in f:
                 f1 = f
                 files.pop(idx)
