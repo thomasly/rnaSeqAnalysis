@@ -22,13 +22,13 @@ def find_inputs(path):
     paired_files = []
     # find paired files
     while files:
-        file_name = os.path.basename(files[0])
+        f1 = os.path.basename(files[0])
         # the indentical part in the file names of the paired files
-        pair_id = file_name.split(".")[0][:-7]
-        for idx, f in enumerate(files):
-            if pair_id in f:
-                paired_files.append(tuple((files[0], f)))
-                files.pop(0)
+        pair_id = f1.split(".")[0][:-7]
+        files.pop(0)
+        for idx, f2 in enumerate(files):
+            if pair_id in f2:
+                paired_files.append(tuple((f1, f2)))
                 files.pop(idx)
                 break
 
@@ -69,7 +69,7 @@ def main(path=None):
     print("infq2: {}".format(infq2))
     print("adapterfa: {}".format(adapterfa))
 
-    command = "java -jar {0} PE -threads {1} -phread33 -trimlog \
+    command = "java -jar {0} PE -threads {1} -phred33 -trimlog \
     {2} {3} {4} {5} {6} {7} {8} ILLUMINACLIP:{9}:3:30:7:1:TRUE LEADING:2 \
     TRAILING:2 SLIDINGWINDOW:4:10 MINLEN:36".format(trimmomaticpath, 
     n_threads, logfile, infq1, infq2, outfq1, outrmfq1, outfq2, outrmfq2, 
