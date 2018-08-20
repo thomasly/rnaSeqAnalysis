@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#$ -N rnaSeqFastqc
+#$ -N rnaSeqTimmomatic
 #$ -cwd -V
 ## -pe openmpi 4-8
 #$ -o /ifs/data/proteomics/projects/Sunny/YL/qsuboutputs/$JOB_NAME_$JOB_ID.out
