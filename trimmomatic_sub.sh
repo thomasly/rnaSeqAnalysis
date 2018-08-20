@@ -8,5 +8,5 @@
 
 module load python/3.6.4
 
-python3 trimmo.py $1 $2
+python3 trimmo.py $1 $SGE_TASK_ID
 # python3 fastqc_exe.py $1
