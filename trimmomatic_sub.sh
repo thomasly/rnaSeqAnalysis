@@ -2,7 +2,7 @@
 
 #$ -N rnaSeqFastqc
 #$ -cwd -V
-#$ -pe openmpi 4-16
+#$ -pe openmpi 4-8
 #$ -o /ifs/data/proteomics/projects/Sunny/YL/trimmomatic_outputs/$JOB_NAME_$JOB_ID.out
 #$ -e /ifs/data/proteomics/projects/Sunny/YL/trimmomatic_outputs/$JOB_NAME_$JOB_ID.err
 
