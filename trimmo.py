@@ -22,9 +22,13 @@ def find_inputs(path):
     paired_files = []
     # find paired files
     while files:
-        f1 = os.path.basename(files[0])
+        # save the path
+        f1 = files[0]
+        # get file name
+        f1_base = os.path.basename(f1)
         # the indentical part in the file names of the paired files
-        pair_id = f1.split(".")[0][:-7]
+        pair_id = f1_base.split(".")[0][:-7]
+        # remove f1 to avoid duplicate
         files.pop(0)
         for idx, f2 in enumerate(files):
             if pair_id in f2:
