@@ -13,5 +13,5 @@ class RnaSeqPath:
         self.proteomics = os.path.dirname(self.projects)
         self.data = os.path.dirname(self.proteomics)
         self.ifs = os.path.dirname(self.data)
-        self.xs338 = os.path.join(self.ifs, "homes", "xs338")
+        self.xs338 = os.path.join(self.ifs, "home", "xs338")
         self.trimmomatic = os.path.join(self.xs338, "Trimmomatic-0.36", "trimmomatic-0.36.jar")
