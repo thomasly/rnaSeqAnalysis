@@ -15,9 +15,8 @@ def trimmomatic_qsub():
 
     n_jobs = int(len(os.listdir(paths.fastq)) / 2)
     job_arr = "-t 1-" + str(n_jobs)
-    adapterfa = "/ifs/home/xs338/Trimmomatic-0.36/adapters/TruSeq-adapters.fa"
 
-    command = "qsub {} trimmomatic_sub.sh {}".format(job_arr, adapterfa)
+    command = "qsub {} trimmomatic_sub.sh {}".format(job_arr, paths.adapterfa)
     os.system(command)
 
 
