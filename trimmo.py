@@ -39,12 +39,14 @@ def find_inputs(path):
     return paired_files
 
 
-def trim_extention(path):
+def make_output_name(path):
     """
-    remove the extension from file name, keep path
+    remove the extension from file name
     """
-    return os.path.join(os.path.dirname(path), 
-                    os.path.basename(path).split(".")[0])
+
+    paths = RnaSeqPath()
+    output_dir = os.path.join(paths.home, "trimmomatic_outputs")
+    return os.path.join(output_dir, os.path.basename(path).split(".")[0])
 
 
 def main(path=None):
@@ -64,11 +66,11 @@ def main(path=None):
     file_pair = paired_files_arr[idx]
     infq1 = file_pair[0]
     infq2 = file_pair[1]
-    outfq1 = trim_extention(infq1) + ".cleaned.fastq"
-    outfq2 = trim_extention(infq2) + ".cleaned.fastq"
-    outrmfq1 = trim_extention(infq1) + ".removed.fastq"
-    outrmfq2 = trim_extention(infq2) + ".removed.fastq"
-    logfile = trim_extention(infq1) + ".log"
+    outfq1 = make_output_name(infq1) + ".cleaned.fastq"
+    outfq2 = make_output_name(infq2) + ".cleaned.fastq"
+    outrmfq1 = make_output_name(infq1) + ".removed.fastq"
+    outrmfq2 = make_output_name(infq2) + ".removed.fastq"
+    logfile = make_output_name(infq1) + ".log"
     print("infq1: {}".format(infq1))
     print("infq2: {}".format(infq2))
     print("adapterfa: {}".format(adapterfa))
