@@ -27,7 +27,7 @@ def find_inputs(path):
         pair_id = file_name.split(".")[0][:-7]
         for idx, f in enumerate(files):
             if pair_id in f:
-                paired_files.append(tuple(files[0], f))
+                paired_files.append(tuple((files[0], f)))
                 files.pop(0)
                 files.pop(idx)
                 break

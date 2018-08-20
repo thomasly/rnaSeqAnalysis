@@ -1,8 +1,8 @@
 import os
 
-class RnaSeqPath():
+class RnaSeqPath:
 
-    def __init___(self):
+    def __init__(self):
         self.current = os.path.abspath(os.curdir)
         self.home = os.path.dirname(self.current)
         self.sunny_home = os.path.dirname(self.home)
