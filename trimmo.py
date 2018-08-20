@@ -77,6 +77,7 @@ def main(path=None):
     print("infq1: {}".format(infq1))
     print("infq2: {}".format(infq2))
     print("adapterfa: {}".format(adapterfa))
+    sys.stdout.flush()
 
     command = "java -jar {0} PE -threads {1} -phred33 -trimlog \
     {2} {3} {4} {5} {6} {7} {8} ILLUMINACLIP:{9}:3:30:7:1:TRUE LEADING:2 \
