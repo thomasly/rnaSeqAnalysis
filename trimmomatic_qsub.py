@@ -19,6 +19,9 @@ def trimmomatic_qsub():
     command = "qsub {} trimmomatic_sub.sh {}".format(job_arr, paths.adapterfa)
     os.system(command)
 
+    cleaning = "qsub -hold_jid rnaSeqTimmomatic clean_temp.sh"
+    os.system(cleaning)
+
 
 if __name__ == "__main__":
     trimmomatic_qsub()
