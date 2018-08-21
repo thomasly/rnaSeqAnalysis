@@ -2,6 +2,7 @@ import os, sys
 from glob import glob
 from multiprocessing import cpu_count
 from paths import RnaSeqPath
+import pickle as pk
 
 def find_inputs(path):
     """
@@ -39,6 +40,9 @@ def find_inputs(path):
                 files.pop(idx)
                 break
 
+    with open("temp", "wb") as f:
+        pk.dump(paired_files, f)
+
     return paired_files
 
 
@@ -58,10 +62,15 @@ def main(path=None):
     """
     paths = RnaSeqPath()
     trimmomaticpath = paths.trimmomatic
-    if path:
-        paired_files_arr = find_inputs(path)
-    else:
-        paired_files_arr = find_inputs(paths.fastq)
+    paired_files_arr = None
+    try:
+        with open("temp", "rb") as f:
+            paired_files_arr = pk.load(f)
+    except (IOError, FileNotFoundError):
+        if path:
+            paired_files_arr = find_inputs(path)
+        else:
+            paired_files_arr = find_inputs(paths.fastq)
     
     adapterfa = sys.argv[1]
     n_threads = cpu_count()
