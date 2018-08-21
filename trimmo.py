@@ -40,8 +40,13 @@ def find_inputs(path):
                 files.pop(idx)
                 break
 
-    with open("temp", "wb") as f:
-        pk.dump(paired_files, f)
+    try:
+        f = open("temp", "wb")
+    except IOError:
+        raise
+    else:
+        with f:
+            pk.dump(paired_files, f)
 
     return paired_files
 
@@ -64,13 +69,15 @@ def main(path=None):
     trimmomaticpath = paths.trimmomatic
     paired_files_arr = None
     try:
-        with open("temp", "rb") as f:
-            paired_files_arr = pk.load(f)
+        f = open("temp", "rb")
     except (IOError, FileNotFoundError):
         if path:
             paired_files_arr = find_inputs(path)
         else:
             paired_files_arr = find_inputs(paths.fastq)
+    else:
+        with f:
+            paired_files_arr = pk.load(f)
     
     adapterfa = sys.argv[1]
     n_threads = cpu_count()
