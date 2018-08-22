@@ -19,5 +19,5 @@ class RnaSeqPath:
         self.genome = os.path.join(self.sunny_home, "genome")
         self.genome_fasta = os.path.join(self.genome, "hg38.fa")
         self.trimmed = os.path.join(self.home, "trimmomatic_outputs")
+        self.star_output = os.path.join(self.home, "star_outputs")
 
-        

@@ -9,7 +9,7 @@ def star_qsub():
     paths = RnaSeqPath()
 
     try:
-        os.mkdir(os.path.join(paths.home, "star_outputs"))
+        os.mkdir(paths.star_output)
     except IOError:
         pass
 

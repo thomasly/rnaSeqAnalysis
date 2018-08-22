@@ -2,7 +2,7 @@
 
 #$ -N STAR_job
 #$ -cwd -V
-#$ -pe openmpi 1-2
+#$ -pe openmpi 32
 #$ -o /ifs/data/proteomics/projects/Sunny/YL/qsuboutputs/$JOB_NAME_$JOB_ID.out
 #$ -e /ifs/data/proteomics/projects/Sunny/YL/qsuboutputs/$JOB_NAME_$JOB_ID.err
 
