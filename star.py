@@ -99,7 +99,7 @@ def mapping():
 
     n_threads = os.cpu_count()
     paths = RnaSeqPath()
-    reads = get_paired_reads(paths.trimmed)[int(sys.argv[1])]
+    reads = get_paired_reads(paths.trimmed)[int(sys.argv[1]) - 1]
     option_dic = { "--runThreadN" : n_threads,
                 "--genomeDir" :  paths.genome,
                 "--greadFilesIn" : reads,
