@@ -16,3 +16,8 @@ class RnaSeqPath:
         self.xs338 = os.path.join(self.ifs, "home", "xs338")
         self.trimmomatic = os.path.join(self.xs338, "Trimmomatic-0.36", "trimmomatic-0.36.jar")
         self.adapterfa = os.path.join(self.xs338, "Trimmomatic-0.36", "adapters", "TruSeq-adapters.fa")
+        self.genome = os.path.join(self.sunny_home, "genome")
+        self.genome_fasta = os.path.join(self.genome, "hg38.fa")
+        self.trimmed = os.path.join(self.home, "trimmomatic_outputs")
+
+        
