@@ -41,7 +41,7 @@ def find_inputs(path):
                 break
 
     try:
-        f = open("temp", "wb")
+        f = open("trim_temp", "wb")
     except IOError:
         raise
     else:
@@ -69,7 +69,7 @@ def main(path=None):
     trimmomaticpath = paths.trimmomatic
     paired_files_arr = None
     try:
-        f = open("temp", "rb")
+        f = open("trim_temp", "rb")
     except (IOError, FileNotFoundError):
         if path:
             paired_files_arr = find_inputs(path)
