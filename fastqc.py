@@ -12,7 +12,7 @@ def main():
     data_path = os.path.abspath("/ifs/data/proteomics/projects/L1_rnaseq/fastq")
     home_path = os.path.abspath("..")
 
-    outputs_path = os.path.join(home_path, "fastqcOutputs")
+    outputs_path = os.path.join(home_path, "fastqc_outputs")
     try:
         os.mkdir(outputs_path)
     except IOError:
