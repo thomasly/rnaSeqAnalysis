@@ -1,3 +1,9 @@
+# temp files
+*_temp
+
+# STAR log file
+Log.out
+
 # ms vscode
 .vscode/
 
