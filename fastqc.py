@@ -4,7 +4,6 @@ import multiprocessing as mp
 from datetime import datetime
 
 def execute(command):
-    pid = os.getpid()
     os.system(command)
 
 def main():
