@@ -57,7 +57,7 @@ def make_output_name(path):
     """
 
     paths = RnaSeqPath()
-    output_dir = os.path.join(paths.home, "trimmomatic_outputs")
+    output_dir = paths.trimmomatic_outputs
     return os.path.join(output_dir, os.path.basename(path).split(".")[0])
 
 
