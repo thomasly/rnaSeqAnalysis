@@ -7,7 +7,7 @@ def star_qsub(job):
     """
 
     if job == "indexing":
-        command = "qsub star_sub.sh indexing"
+        command = "qsub star_indexing_sub.sh"
         os.system(command)
 
     if job == "mapping":
@@ -21,7 +21,7 @@ def star_qsub(job):
         n_jobs = int(len(os.listdir(paths.trimmomatic_outputs)) / 5 * 2)
         job_arr = "-t 1-" + str(n_jobs)
 
-        command = "qsub -hod_jid STAR_indexing_job {} star_sub.sh mapping".format(job_arr)
+        command = "qsub -hod_jid STAR_indexing_job {} star_mapping_sub.sh".format(job_arr)
         os.system(command)
 
         cleaning_memory = "qsub star_clean_memory.sh"
