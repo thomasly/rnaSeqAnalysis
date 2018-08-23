@@ -37,6 +37,7 @@ class RnaSeqPath:
         self.hg38_l1_annotation = os.path.join(self.hg38_l1_root, "annotation", "hg38_genes_l1.gtf")
 
         # paths to outputs folders
+        self.qsub_outputs = os.path.join(self.home, "qsuboutputs")
         self.outputs_home = os.path.join(self.home, "rnaSeqAnalysisOutputs")
         self.fastqc_outputs = os.path.join(self.outputs_home, "fastqc_outputs")
         self.trimmomatic_outputs = os.path.join(self.outputs_home, "trimmomatic_outputs")
