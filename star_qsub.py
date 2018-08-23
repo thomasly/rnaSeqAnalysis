@@ -13,13 +13,16 @@ def star_qsub():
     except IOError:
         pass
 
-    n_jobs = int(len(os.listdir(paths.fastq)) / 2)
+    n_jobs = int(len(os.listdir(paths.trimmomatic_outputs)) / 5 * 2)
     job_arr = "-t 1-" + str(n_jobs)
 
-    command = "qsub {} star_sub.sh".format(job_arr)
-    os.system(command)
+    command1 = "qsub star_sub.sh indexing"
+    os.system(command1)
 
-    cleaning = "qsub -hold_jid STAR_job clean_temp.sh"
+    command2 = "qsub -hod_jid STAR_indexing_job {} star_sub.sh mapping".format(job_arr)
+    os.system(command2)
+
+    cleaning = "qsub -hold_jid STAR_mapping_job clean_temp.sh"
     os.system(cleaning)
 
 

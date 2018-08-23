@@ -59,7 +59,7 @@ def get_paired_reads(path=None):
         files = glob(path)
     else:
         paths = RnaSeqPath()
-        files = glob(os.path.join(paths.trimmed, "*.cleaned.fastq"))
+        files = glob(os.path.join(paths.trimmomatic_outputs, "*.cleaned.fastq"))
 
     paired_files = []
     # find paired files
@@ -99,7 +99,7 @@ def mapping():
 
     n_threads = os.cpu_count()
     paths = RnaSeqPath()
-    reads = get_paired_reads(paths.trimmed)[int(sys.argv[1]) - 1]
+    reads = get_paired_reads(paths.trimmomatic_outputs)[int(sys.argv[2]) - 1]
     option_dic = { "--runThreadN" : n_threads,
                 "--genomeDir" :  paths.genome,
                 "--greadFilesIn" : reads,
@@ -112,18 +112,17 @@ def mapping():
     os.system(command)
 
 
-def main(opt=None):
+def main(opt="indexing"):
     """
     run STAR
     """
 
-    if not opt:
-        generate_genome_index()
-        mapping()
     if opt == "indexing":
         generate_genome_index()
     if opt == "mapping":
         mapping()
+    else:
+        print("not a valid option.")
 
 
 if __name__ == "__main__":
