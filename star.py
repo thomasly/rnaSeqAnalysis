@@ -23,9 +23,9 @@ def generate_genome_index():
 
     option_dic = { "--runThreadN" : n_threads,
                 "--runMode" : "genomeGenerate",
-                "--genomeDir" :  paths.genome,
-                "--genomeFastaFiles" : paths.genome_fasta,
-                "--sjdbGTFfile" : paths.annotation,
+                "--genomeDir" :  paths.hg38_root,
+                "--genomeFastaFiles" : paths.hg38_fasta,
+                "--sjdbGTFfile" : paths.hg38_l1_annotation,
                 "--sjdbOverhang" : 150}
 
     option = dic_to_string(option_dic)
@@ -112,7 +112,7 @@ def mapping():
     os.system(command)
 
 
-def main(opt="indexing"):
+def main(opt):
     """
     run STAR
     """

@@ -17,7 +17,6 @@ class RnaSeqPath:
         # paths to RNA-seq fastq data
         self.l1_rnaseq = os.path.join(self.projects, "L1_rnaseq")
         self.fastq = os.path.join(self.l1_rnaseq, "fastq")
-        self.annotation = os.path.join(self.l1_rnaseq, "annotation")
 
         # paths to roots
         self.proteomics = os.path.dirname(self.projects)
@@ -32,7 +31,10 @@ class RnaSeqPath:
         # paths to genome files
         self.genome = os.path.join(self.home, "genome")
         self.hg38_root = os.path.join(self.genome, "hg38")
-        self.genome_fasta = os.path.join(self.hg38_root, "hg38.fa")
+        self.hg38_fasta = os.path.join(self.hg38_root, "hg38.fa")
+        self.hg38_l1_root = os.path.join(self.genome, "hg38_l1")
+        self.hg38_l1_fasta = os.path.join(self.hg38_l1_root, "hg38_l1.fa")
+        self.hg38_l1_annotation = os.path.join(self.hg38_l1_root, "annotation", "hg38_genes_l1.gtf")
 
         # paths to outputs folders
         self.outputs_home = os.path.join(self.home, "rnaSeqAnalysisOutputs")
