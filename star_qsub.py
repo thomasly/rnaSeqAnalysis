@@ -32,7 +32,7 @@ if __name__ == "__main__":
     option = input("Pleas choose the job you want to run (1 - indexing, 2 - mapping): ")
     if option == "1":
         star_qsub("indexing")
-    if option == "2":
+    elif option == "2":
         star_qsub("mapping")
     else:
         print("Option does not exist.")
