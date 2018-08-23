@@ -1,7 +1,7 @@
 import os
 from paths import RnaSeqPath
 
-def generate_bash_file(filename,
+def generate_bash_file(filename="_qsub_temp.sh",
 job_name=None,
 threads=None,
 mem_free=None,

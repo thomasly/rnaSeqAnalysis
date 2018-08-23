@@ -23,8 +23,8 @@ def generate_genome_index():
 
     option_dic = { "--runThreadN" : n_threads,
                 "--runMode" : "genomeGenerate",
-                "--genomeDir" :  paths.hg38_root,
-                "--genomeFastaFiles" : paths.hg38_fasta,
+                "--genomeDir" :  paths.hg38_l1_root,
+                "--genomeFastaFiles" : paths.hg38_l1_fasta,
                 "--sjdbGTFfile" : paths.hg38_l1_annotation,
                 "--sjdbOverhang" : 150}
 
