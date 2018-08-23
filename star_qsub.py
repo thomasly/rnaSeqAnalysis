@@ -1,5 +1,7 @@
 import os, sys
 from paths import RnaSeqPath
+from utils import *
+from time import sleep
 
 def star_qsub(job):
     """
@@ -7,8 +9,20 @@ def star_qsub(job):
     """
 
     if job == "indexing":
-        command = "qsub star_sub.sh indexing"
+        generate_bash_file(job_name="star_indexing", 
+                        threads=4, 
+                        out_log="star_indexing.out", 
+                        err_log="star_indexing.err", 
+                        commands = ["module load STAR/2.4.5a", 
+                            "module load python3/3.6.4", 
+                            "python3 star.py indexing"])
+        command = "qsub _qsub_temp.sh"
         os.system(command)
+        sleep(2)
+        try:
+            os.remove("_qsub_temp.sh")
+        except FileNotFoundError:
+            pass
 
     if job == "mapping":
         paths = RnaSeqPath()
@@ -18,14 +32,35 @@ def star_qsub(job):
         except IOError:
             pass
 
+        commands = []
+        commands.append("module load STAR/2.4.5a")
+        commands.append("module load python/3.6.4")
+        commands.append("python3 star.py mapping $SGE_TASK_ID")
         n_jobs = int(len(os.listdir(paths.trimmomatic_outputs)) / 5 * 2)
-        job_arr = "-t 1-" + str(n_jobs)
+        generate_bash_file(job_name="star_mapping",
+                        threads=4,
+                        job_arr=n_jobs,
+                        commands=commands)
 
-        command = "qsub -hod_jid STAR_indexing_job {} star_sub.sh mapping".format(job_arr)
+        command = "qsub _qsub_temp.sh"
         os.system(command)
+        sleep(2)
+        try:
+            os.remove("_qsub_temp.sh")
+        except FileNotFoundError:
+            pass
 
-        cleaning_memory = "qsub star_clean_memory.sh"
+        commands = ["module load STAR/2.4.5a", 
+                "remove *_temp", 
+                "STAR --genomeLoad Remove"]
+        generate_bash_file(commands=commands)
+        cleaning_memory = "qsub _qsub_temp.sh"
         os.system(cleaning_memory)
+        sleep(2)
+        try:
+            os.remove("_qsub_temp.sh")
+        except FileNotFoundError:
+            pass
 
 
 if __name__ == "__main__":
