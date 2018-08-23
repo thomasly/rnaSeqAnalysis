@@ -11,4 +11,4 @@ module load python/3.6.4
 module load star/2.4.5a
 module load samtools/1.3
 
-python3 star.py $1
+python3 star.py indexing
