@@ -9,7 +9,7 @@ def trimmomatic_qsub():
     paths = RnaSeqPath()
 
     try:
-        os.mkdir(os.path.join(paths.home, "trimmomatic_outputs"))
+        os.mkdir(paths.trimmomatic_outputs)
     except IOError:
         pass
 
