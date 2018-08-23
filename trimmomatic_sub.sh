@@ -2,7 +2,7 @@
 
 #$ -N rnaSeqTimmomatic
 #$ -cwd -V
-#$ -l mem=8
+#$ -pe openmpi 1-2 -l mem=8
 #$ -o /ifs/data/proteomics/projects/Sunny/YL/qsuboutputs/$JOB_NAME_$JOB_ID.out
 #$ -e /ifs/data/proteomics/projects/Sunny/YL/qsuboutputs/$JOB_NAME_$JOB_ID.err
 
