@@ -20,7 +20,7 @@ commands=[]):
             string = "#$ -N {}\n".format(job_name)
             f.write(string)
         if threads:
-            string = "#$ -pe openmpi {}\n".format(threads)
+            string = "#$ -pe openmpi 1-{}\n".format(threads)
             f.write(string)
         if mem_free:
             string = "#$ -l mem_free={}\n".format(mem_free)
@@ -44,3 +44,5 @@ commands=[]):
         f.writelines(commands)
 
 
+if __name__ == "__main__":
+    generate_bash_file("test.sh", job_name="test_job", threads=8, mem_free='8G', job_arr=4, out_log="test.out", err_log="test.err", commands=["python3"])
