@@ -10,4 +10,4 @@
 module load python/3.6.4
 module load star
 
-python3 star.py $1 $SGE_TASK_ID
+python3 star.py $1
