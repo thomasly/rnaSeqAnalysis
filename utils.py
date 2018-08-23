@@ -8,6 +8,7 @@ mem_free=None,
 job_arr=None,
 out_log=None,
 err_log=None,
+hod_jid=None,
 commands=[]):
     """
     automatically generate bash file for qsub
@@ -30,19 +31,33 @@ commands=[]):
             f.write(string)
 
         if out_log:
-            string = "#$ -o {}\n".format(os.path.join(paths.qsub_outputs, out_log))
+            string = "#$ -o {}\n".format(os.path.join(paths.qsub_outputs, 
+                                        out_log))
         else:
-            string = "#$ -o {}\n".format(os.path.join(paths.qsub_outputs, "$JOB_NAME_$JOB_ID.out"))
+            string = "#$ -o {}\n".format(os.path.join(paths.qsub_outputs, 
+                                        "$JOB_NAME_$JOB_ID.out"))
         f.write(string)
 
         if err_log:
-            string = "#$ -e {}\n".format(os.path.join(paths.qsub_outputs, out_log))
+            string = "#$ -e {}\n".format(os.path.join(paths.qsub_outputs, 
+                                        out_log))
         else:
-            string = "#$ -e {}\n".format(os.path.join(paths.qsub_outputs, "$JOB_NAME_$JOB_ID.err"))
+            string = "#$ -e {}\n".format(os.path.join(paths.qsub_outputs, 
+                                        "$JOB_NAME_$JOB_ID.err"))
         f.write(string)
+
+        if hod_jid:
+            string = "#$ -hod_jid {}\n".format(hod_jid)
 
         f.writelines(commands)
 
 
 if __name__ == "__main__":
-    generate_bash_file("test.sh", job_name="test_job", threads=8, mem_free='8G', job_arr=4, out_log="test.out", err_log="test.err", commands=["python3"])
+    generate_bash_file("test.sh", 
+                    job_name="test_job", 
+                    threads=8, 
+                    mem_free='8G', 
+                    job_arr=4, 
+                    out_log="test.out", 
+                    err_log="test.err", 
+                    commands=["python3"])
