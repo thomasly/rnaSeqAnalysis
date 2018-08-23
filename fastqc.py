@@ -2,16 +2,17 @@ import os, logging, sys
 from glob import glob
 import multiprocessing as mp
 from datetime import datetime
+from paths import RnaSeqPath
 
 def execute(command):
     os.system(command)
 
 def main():
     start = datetime.now()
-    data_path = os.path.abspath("/ifs/data/proteomics/projects/L1_rnaseq/fastq")
-    home_path = os.path.abspath("..")
+    paths = RnaSeqPath()
+    data_path = paths.fastq
 
-    outputs_path = os.path.join(home_path, "fastqc_outputs")
+    outputs_path = paths.fastqc_outputs
     try:
         os.mkdir(outputs_path)
     except IOError:
