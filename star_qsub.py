@@ -1,30 +1,38 @@
 import os, sys
 from paths import RnaSeqPath
 
-def star_qsub():
+def star_qsub(job):
     """
     qsub star mission through star_sub.sh
     """
 
-    paths = RnaSeqPath()
+    if job == "indexing":
+        command = "qsub star_sub.sh indexing"
+        os.system(command)
 
-    try:
-        os.mkdir(paths.star_output)
-    except IOError:
-        pass
+    if job == "mapping":
+        paths = RnaSeqPath()
 
-    n_jobs = int(len(os.listdir(paths.trimmomatic_outputs)) / 5 * 2)
-    job_arr = "-t 1-" + str(n_jobs)
+        try:
+            os.mkdir(paths.star_outputs)
+        except IOError:
+            pass
 
-    command1 = "qsub star_sub.sh indexing"
-    os.system(command1)
+        n_jobs = int(len(os.listdir(paths.trimmomatic_outputs)) / 5 * 2)
+        job_arr = "-t 1-" + str(n_jobs)
 
-    command2 = "qsub -hod_jid STAR_indexing_job {} star_sub.sh mapping".format(job_arr)
-    os.system(command2)
+        command = "qsub -hod_jid STAR_indexing_job {} star_sub.sh mapping".format(job_arr)
+        os.system(command)
 
-    cleaning = "qsub -hold_jid STAR_mapping_job clean_temp.sh"
-    os.system(cleaning)
+        cleaning_memory = "qsub star_clean_memory.sh"
+        os.system(cleaning_memory)
 
 
 if __name__ == "__main__":
-    star_qsub()
+    option = input("Pleas choose the job you want to run (1 - indexing, 2 - mapping): ")
+    if option == "1":
+        star_qsub("indexing")
+    if option == "2":
+        star_qsub("mapping")
+    else:
+        print("Option does not exist.")

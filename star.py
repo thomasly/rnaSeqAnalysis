@@ -76,7 +76,7 @@ def get_paired_reads(path=None):
         # the indentical part in the file names of the paired files
         pair_id = f1_base.split(".")[0][:-7]
         for idx, f2 in enumerate(files):
-            if pair_id in f2:
+            if pair_id in f2 and "cleaned" in f2:
                 paired_files.append(tuple((f1, f2)))
                 files.pop(idx)
                 break
@@ -97,18 +97,24 @@ def mapping():
     Run mapping job
     """
 
-    n_threads = os.cpu_count()
     paths = RnaSeqPath()
+    try:
+        os.mkdir(paths.star_outputs)
+    except IOError:
+        pass
+
+    n_threads = os.cpu_count()
     reads = get_paired_reads(paths.trimmomatic_outputs)[int(sys.argv[2]) - 1]
     option_dic = { "--runThreadN" : n_threads,
-                "--genomeDir" :  paths.genome,
-                "--greadFilesIn" : reads,
+                "--genomeDir" :  paths.hg38_l1_root,
+                "--greadFilesIn" : "{} {}".format(reads[0], reads[1]),
+                "--outFileNamePrefix" : paths.star_outputs,
+                "--genomeLoad" : "LoadAndKeep"
                 }
 
     option = dic_to_string(option_dic)
-    value = ""
 
-    command = "STAR {option} {value}".format(option=option, value=value)
+    command = "STAR {option}".format(option=option)
     os.system(command)
 
 

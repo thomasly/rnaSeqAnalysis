@@ -40,5 +40,5 @@ class RnaSeqPath:
         self.outputs_home = os.path.join(self.home, "rnaSeqAnalysisOutputs")
         self.fastqc_outputs = os.path.join(self.outputs_home, "fastqc_outputs")
         self.trimmomatic_outputs = os.path.join(self.outputs_home, "trimmomatic_outputs")
-        self.star_output = os.path.join(self.outputs_home, "star_outputs")
+        self.star_outputs = os.path.join(self.outputs_home, "star_outputs")
         
