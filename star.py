@@ -98,7 +98,7 @@ def mapping():
     reads = get_paired_reads()[int(sys.argv[2]) - 1]
     option_dic = { "--runThreadN" : n_threads,
                 "--genomeDir" :  paths.hg38_l1_root,
-                "--greadFilesIn" : "{} {}".format(reads[0], reads[1]),
+                "--readFilesIn" : "{} {}".format(reads[0], reads[1]),
                 "--outFileNamePrefix" : paths.star_outputs,
                 "--genomeLoad" : "LoadAndKeep"
                 }
