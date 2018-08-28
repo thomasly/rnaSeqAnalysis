@@ -1,20 +1,37 @@
 import os
 from paths import RnaSeqPath
+from datetime import datetime
 
-def generate_bash_file(filename="_qsub_temp.sh",
+
+def generate_bash_file(filename_base="_qsub_temp.sh",
 job_name=None,
 threads=None,
 mem_free=None,
 job_arr=None,
 out_log=None,
 err_log=None,
-hod_jid=None,
+hold_jid=None,
 commands=[]):
     """
     automatically generate bash file for qsub
+
+    retrun:
+    full path to the file.
     """
     paths = RnaSeqPath()
-    with open(filename, "w") as f:
+    temp = paths.temp
+    try:
+        os.mkdir(temp)
+    except IOError:
+        pass
+    
+    timestamp = datetime.now().day + \
+                datetime.now().hour + \
+                datetime.now().minute + \
+                datetime.now().microsecond
+    filename = filename_base + "_" + timestamp + ".sh"
+    file_path = os.path.join(temp, filename)
+    with open(file_path, "w") as f:
         f.write("#!/bin/bash\n")
 
         if job_name:
@@ -46,10 +63,30 @@ commands=[]):
                                         "$JOB_NAME_$JOB_ID.err"))
         f.write(string)
 
-        if hod_jid:
-            string = "#$ -hod_jid {}\n".format(hod_jid)
+        if hold_jid:
+            string = "#$ -hold_jid {}\n".format(hold_jid)
 
         f.writelines(commands)
+
+    return file_path
+
+
+def qsub(file_name):
+    """
+    qsub the file to hpc
+    """
+    command = "qsub {}".format(file_name)
+    os.system(command)
+
+
+def dic_to_string(dic={}):
+    """
+    transform dic to a command line string.
+    """
+    opt_string = ""
+    for key, value in dic.items():
+        opt_string += key + " " + str(value) + " "
+    return opt_string
 
 
 if __name__ == "__main__":

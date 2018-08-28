@@ -42,4 +42,7 @@ class RnaSeqPath:
         self.fastqc_outputs = os.path.join(self.outputs_home, "fastqc_outputs")
         self.trimmomatic_outputs = os.path.join(self.outputs_home, "trimmomatic_outputs")
         self.star_outputs = os.path.join(self.outputs_home, "star_outputs")
+
+        # temp folder
+        self.temp = os.path.join(self.home, "temp")
         

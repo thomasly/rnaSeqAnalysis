@@ -2,17 +2,9 @@ import os, sys
 from paths import RnaSeqPath
 from glob import glob
 import pickle as pk
+from utils import dic_to_string
 
-def dic_to_string(dic={}):
-    """
-    transform dic to a command line string.
-    """
-    opt_string = ""
-    for key, value in dic.items():
-        opt_string += key + " " + str(value) + " "
-    return opt_string
     
-
 def generate_genome_index():
     """
     Run genome index generation
@@ -45,8 +37,9 @@ def get_paired_reads(path=None):
     array contains all inputs paired in tuples
     """
 
+    paths = RnaSeqPath()
     try:
-        f = open("star_temp", "rb")
+        f = open(os.path.join(paths.temp, 'star_temp'), 'rb')
     except OSError:
         pass
     else:
@@ -58,7 +51,6 @@ def get_paired_reads(path=None):
     if path:
         files = glob(path)
     else:
-        paths = RnaSeqPath()
         files = glob(os.path.join(paths.trimmomatic_outputs, "*.cleaned.fastq"))
 
     paired_files = []
@@ -82,7 +74,7 @@ def get_paired_reads(path=None):
                 break
 
     try:
-        f = open("star_temp", "wb")
+        f = open(os.path.join(paths.temp, "star_temp"), "wb")
     except IOError:
         raise
     else:
