@@ -7,7 +7,7 @@ class RnaSeqPath:
 
     def __init__(self):
         # path to YL
-        self.scripts = os.path.abspath(os.curdir)
+        self.scripts = os.path.dirname(os.path.abspath(__file__))
         self.home = os.path.dirname(self.scripts)
 
         # path to Sunny
@@ -44,5 +44,5 @@ class RnaSeqPath:
         self.star_outputs = os.path.join(self.outputs_home, "star_outputs")
 
         # temp folder
-        self.temp = os.path.join(self.home, "temp")
+        self.temp = os.path.join(self.scripts, "temp")
         

@@ -71,11 +71,13 @@ commands=[]):
     return file_path
 
 
-def qsub(file_name):
+def qsub(file_name, args=None):
     """
     qsub the file to hpc
     """
-    command = "qsub {}".format(file_name)
+    if args:
+        args_str = ' '.join(args)
+    command = "qsub {} {}".format(file_name, args_str)
     os.system(command)
 
 
