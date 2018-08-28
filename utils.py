@@ -25,10 +25,10 @@ commands=[]):
     except IOError:
         pass
     
-    timestamp = datetime.now().day + \
-                datetime.now().hour + \
-                datetime.now().minute + \
-                datetime.now().microsecond
+    timestamp = str(datetime.now().day) + \
+                str(datetime.now().hour) + \
+                str(datetime.now().minute) + \
+                str(datetime.now().microsecond)
     filename = filename_base + "_" + timestamp + ".sh"
     file_path = os.path.join(temp, filename)
     with open(file_path, "w") as f:
