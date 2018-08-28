@@ -3,7 +3,7 @@ from paths import RnaSeqPath
 from datetime import datetime
 
 
-def generate_bash_file(filename_base="_qsub_temp.sh",
+def generate_bash_file(filename_base="_qsub_temp",
 job_name=None,
 threads=None,
 mem_free=None,

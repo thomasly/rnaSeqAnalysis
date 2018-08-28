@@ -96,10 +96,11 @@ def mapping():
 
     n_threads = os.cpu_count()
     reads = get_paired_reads()[int(sys.argv[2]) - 1]
+    out_put_prefix = "{}_".format(os.path.basename(reads[0]).split(".")[0])
     option_dic = { "--runThreadN" : n_threads,
                 "--genomeDir" :  paths.hg38_l1_root,
                 "--readFilesIn" : "{} {}".format(reads[0], reads[1]),
-                "--outFileNamePrefix" : os.path.join(paths.star_outputs, "{}_".format(reads[0].split(".")[0]))
+                "--outFileNamePrefix" : os.path.join(paths.star_outputs, out_put_prefix)
                 }
 
     option = dic_to_string(option_dic)
