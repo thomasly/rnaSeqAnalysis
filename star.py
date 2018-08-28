@@ -99,7 +99,7 @@ def mapping():
     option_dic = { "--runThreadN" : n_threads,
                 "--genomeDir" :  paths.hg38_l1_root,
                 "--readFilesIn" : "{} {}".format(reads[0], reads[1]),
-                "--outFileNamePrefix" : os.path.join(paths.star_outputs, "YL_")
+                "--outFileNamePrefix" : os.path.join(paths.star_outputs, "{}_".format(reads[0].split(".")[0]))
                 }
 
     option = dic_to_string(option_dic)
