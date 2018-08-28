@@ -14,8 +14,8 @@ def star_qsub(job):
                         threads=4, 
                         out_log="star_indexing.out", 
                         err_log="star_indexing.err", 
-                        commands = ["module load STAR/2.4.5a", 
-                            "module load python3/3.6.4", 
+                        commands = ["module load star/2.4.5a", 
+                            "module load python/3.6.4", 
                             "python3 star.py indexing"])
         qsub(shell_file)
         
@@ -29,7 +29,7 @@ def star_qsub(job):
             pass
 
         commands = []
-        commands.append("module load STAR/2.4.5a")
+        commands.append("module load star/2.4.5a")
         commands.append("module load python/3.6.4")
         commands.append("python3 star.py mapping $SGE_TASK_ID")
         n_jobs = int(len(os.listdir(paths.trimmomatic_outputs)) / 5 * 2)
@@ -39,7 +39,7 @@ def star_qsub(job):
                         commands=commands)
         qsub(shell_file)
 
-        commands = ["module load STAR/2.4.5a", 
+        commands = ["module load star/2.4.5a", 
                 "rm {}".format(os.path.join(paths.temp, 'star_temp')),
                 "STAR --genomeLoad Remove"]
         shell_file = generate_bash_file(hold_jid='star_mapping', commands=commands)
