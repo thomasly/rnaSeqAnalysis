@@ -65,6 +65,7 @@ commands=[]):
 
         if hold_jid:
             string = "#$ -hold_jid {}\n".format(hold_jid)
+            f.write(string)
 
         f.write('\n'.join(commands))
 
