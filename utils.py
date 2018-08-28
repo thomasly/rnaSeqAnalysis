@@ -66,7 +66,7 @@ commands=[]):
         if hold_jid:
             string = "#$ -hold_jid {}\n".format(hold_jid)
 
-        f.writelines(commands)
+        f.write('\n'.join(commands))
 
     return file_path
 
