@@ -49,7 +49,7 @@ def get_paired_reads(path=None):
 
     # all fastq files
     if path:
-        files = glob(path)
+        files = glob(os.path.join(path, "*.cleaned.fastq"))
     else:
         files = glob(os.path.join(paths.trimmomatic_outputs, "*.cleaned.fastq"))
 
@@ -57,7 +57,6 @@ def get_paired_reads(path=None):
     # find paired files
     while files:
         # find the forward file, save file name, remove it from files array
-        f1 = None
         for idx, f in enumerate(files):
             if "R1" in f:
                 f1 = f
@@ -96,7 +95,7 @@ def mapping():
         pass
 
     n_threads = os.cpu_count()
-    reads = get_paired_reads(paths.trimmomatic_outputs)[int(sys.argv[2]) - 1]
+    reads = get_paired_reads()[int(sys.argv[2]) - 1]
     option_dic = { "--runThreadN" : n_threads,
                 "--genomeDir" :  paths.hg38_l1_root,
                 "--greadFilesIn" : "{} {}".format(reads[0], reads[1]),
