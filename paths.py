@@ -7,8 +7,8 @@ class RnaSeqPath:
 
     def __init__(self):
         # path to YL
-        self.current = os.path.abspath(os.curdir)
-        self.home = os.path.dirname(self.current)
+        self.scripts = os.path.abspath(os.curdir)
+        self.home = os.path.dirname(self.scripts)
 
         # path to Sunny
         self.sunny_home = os.path.dirname(self.home)
