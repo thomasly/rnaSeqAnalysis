@@ -77,8 +77,11 @@ def qsub(file_name, args=None):
     """
     if args:
         args_str = ' '.join(args)
-    command = "qsub {} {}".format(file_name, args_str)
-    os.system(command)
+        command = "qsub {} {}".format(file_name, args_str)
+        os.system(command)
+    else:
+        command = "qsub {}".format(file_name)
+        os.system(command)
 
 
 def dic_to_string(dic={}):
