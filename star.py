@@ -111,7 +111,8 @@ def mapping():
     option_dic = { "--runThreadN" : n_threads,
                 "--genomeDir" :  paths.hg38_l1_root,
                 "--readFilesIn" : "{} {}".format(reads[0], reads[1]),
-                "--outFileNamePrefix" : os.path.join(paths.star_outputs, out_put_prefix)
+                "--outFileNamePrefix" : os.path.join(paths.star_outputs, out_put_prefix),
+                "--outSAMtype" : "BAM Unsorted SortedByCoordinate" 
                 }
 
     option = dic_to_string(option_dic)
