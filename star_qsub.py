@@ -1,7 +1,7 @@
 import os, sys
 from glob import glob
 from paths import RnaSeqPath
-from utils import generate_bash_file, qsub
+from utils import generate_bash_file, qsub, clean
 from time import sleep
 
 
@@ -65,16 +65,7 @@ def star_qsub(job):
         qsub(shell_file)
 
         # clean temp files
-        commands = [ 
-                "rm -f {}".format(os.path.join(paths.temp, '*')),
-                "rm -f ./star_temp"
-                # "STAR --genomeLoad Remove"
-                ]   
-        shell_file = generate_bash_file(
-                            # submit after mapping jobs are finished
-                            hold_jid='star_mapping',  
-                            commands=commands)
-        qsub(shell_file)
+        qsub(clean(after="star_mapping"))
 
 
 if __name__ == "__main__":
