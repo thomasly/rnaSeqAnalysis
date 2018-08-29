@@ -19,7 +19,7 @@ sh_file = generate_bash_file(
 
 # calculate how many qsub to run
 threads = os.cpu_count()
-m = int(ceil(len(glob(os.path.join(paths.fastq, "*.fastq"))) / threads))
+m = int(ceil(len(glob(os.path.join(paths.fastq, "*.fastq.gz"))) / threads))
 
 # submit jobs to hpc
 for t in range(m):
