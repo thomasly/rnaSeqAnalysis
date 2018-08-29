@@ -1,5 +1,5 @@
 import os, sys
-from utils import generate_bash_file, qsub
+from utils import generate_bash_file, qsub, clean
 
 sh_file = generate_bash_file(
     filename_base="fastqc",
@@ -12,3 +12,5 @@ sh_file = generate_bash_file(
 )
 for t in range(5):
     qsub(sh_file, [t])
+
+qsub(clean(after="rnaSeqFastqc"))

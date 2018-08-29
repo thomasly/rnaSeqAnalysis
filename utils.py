@@ -122,6 +122,32 @@ def dic_to_string(dic={}):
     return opt_string
 
 
+def clean(after=None):
+    """
+    generate the shell commands to clean up temp files
+
+    input:
+    after - job name. Cleaning starts after this job is done
+
+    output:
+    shell file path containing cleaning commands
+    """
+
+    paths = RnaSeqPath()
+    shell_file = generate_bash_file(
+        hold_jid=after,
+        commands=[
+            "rm -f ./*temp",
+            "rm -f {}/*".format(paths.temp)
+        ]
+    )
+
+    return shell_file
+
+
+
+
+
 if __name__ == "__main__":
     generate_bash_file("test.sh", 
                     job_name="test_job", 
