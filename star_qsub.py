@@ -42,7 +42,7 @@ def star_qsub(job):
         qsub(shell_file)
 
         commands = ["module load star/2.4.5a", 
-                "rm {}".format(os.path.join(paths.temp, 'star_temp'))
+                "rm {}".format(os.path.join(paths.temp, '*'))
                 # "STAR --genomeLoad Remove"
                 ]   
         shell_file = generate_bash_file(hold_jid='star_mapping', commands=commands)
