@@ -54,9 +54,12 @@ def get_paired_reads(path=None):
 
     # get the paths to all cleaned fastq files
     if path:
-        files = glob(os.path.join(path, "*.cleaned.fastq"))
+        files = glob(os.path.join(path, "*.cleaned.fastq.gz"))
     else:
-        files = glob(os.path.join(paths.trimmomatic_outputs, "*.cleaned.fastq"))
+        files = glob(os.path.join(
+            paths.trimmomatic_outputs, 
+            "*.cleaned.fastq.gz"
+            ))
 
     paired_files = []
     # find paired files
@@ -108,12 +111,14 @@ def mapping():
     n_threads = os.cpu_count()
     reads = get_paired_reads()[int(sys.argv[2]) - 1]
     out_put_prefix = "{}_".format(os.path.basename(reads[0]).split(".")[0])
-    option_dic = { "--runThreadN" : n_threads,
-                "--genomeDir" :  paths.hg38_l1_root,
-                "--readFilesIn" : "{} {}".format(reads[0], reads[1]),
-                "--outFileNamePrefix" : os.path.join(paths.star_outputs, out_put_prefix),
-                "--outSAMtype" : "BAM Unsorted SortedByCoordinate" 
-                }
+    option_dic = { 
+        "--runThreadN" : n_threads,
+        "--genomeDir" :  paths.hg38_l1_root,
+        "--readFilesIn" : "{} {}".format(reads[0], reads[1]),
+        "--outFileNamePrefix" : os.path.join(paths.star_outputs, out_put_prefix),
+        "--outSAMtype" : "BAM Unsorted SortedByCoordinate",
+        "--readFilesCommand" : "zcat"
+    }
 
     option = dic_to_string(option_dic)
 
