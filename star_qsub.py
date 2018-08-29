@@ -34,7 +34,7 @@ def star_qsub(job):
         commands.append("module load python/3.6.4")
         commands.append("python3 {} mapping $SGE_TASK_ID".format(os.path.join(paths.scripts, \
                         'star.py')))
-        n_jobs = int(len(os.listdir(paths.trimmomatic_outputs)) / 5 * 2)
+        n_jobs = int(len(os.listdir(paths.trimmomatic_outputs)) / 5)
         shell_file = generate_bash_file(job_name="star_mapping",
                         threads=4,
                         job_arr=n_jobs,
