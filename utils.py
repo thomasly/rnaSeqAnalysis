@@ -15,6 +15,10 @@ commands=[]):
     """
     automatically generate bash file for qsub
 
+    inputs:
+    possible qsub options
+    commands - list of shell commands
+
     retrun:
     full path to the file.
     """
@@ -25,12 +29,15 @@ commands=[]):
     except IOError:
         pass
     
+    # add unique timestamp to shell file name
     timestamp = str(datetime.now().day) + \
                 str(datetime.now().hour) + \
                 str(datetime.now().minute) + \
                 str(datetime.now().microsecond)
     filename = filename_base + "_" + timestamp + ".sh"
     file_path = os.path.join(temp, filename)
+
+    # create file
     with open(file_path, "w") as f:
         f.write("#!/bin/bash\n")
 
@@ -75,7 +82,12 @@ commands=[]):
 def qsub(file_name, args=None):
     """
     qsub the file to hpc
+    
+    inputs:
+    file_name - the full path to the file needed to be submitted
+    args - list of required args
     """
+
     if args:
         args_str = ' '.join(args)
         command = "qsub {} {}".format(file_name, args_str)
@@ -88,6 +100,21 @@ def qsub(file_name, args=None):
 def dic_to_string(dic={}):
     """
     transform dic to a command line string.
+
+    input
+    dic - commands as a dict
+
+    output
+    string contains all commands
+
+    example:
+    command_dic = {
+        "-a": "b",
+        "--c": "d"
+    }
+
+    dic_to_string(command_dic)
+    -> "-a b --c d " (notice the space at the end of the string)
     """
     opt_string = ""
     for key, value in dic.items():

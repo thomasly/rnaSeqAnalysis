@@ -7,21 +7,22 @@ from utils import dic_to_string
     
 def generate_genome_index():
     """
-    Run genome index generation
+    Run STAR genome index generation
     """
 
     n_threads = os.cpu_count()
     paths = RnaSeqPath()
-
+    # arguments for STAR
     option_dic = { "--runThreadN" : n_threads,
                 "--runMode" : "genomeGenerate",
                 "--genomeDir" :  paths.hg38_l1_root,
                 "--genomeFastaFiles" : paths.hg38_l1_fasta,
                 "--sjdbGTFfile" : paths.hg38_l1_annotation,
                 "--sjdbOverhang" : 150}
-
+    # transform the arguments from dict to string
     option = dic_to_string(option_dic)
 
+    # create shell command and deliver it
     command = "STAR {option}".format(option = option)
     os.system(command)
 
@@ -38,6 +39,8 @@ def get_paired_reads(path=None):
     """
 
     paths = RnaSeqPath()
+    # open the 'star_temp' file and return the file pair list
+    # if other process has created it
     try:
         f = open(os.path.join(paths.temp, 'star_temp'), 'rb')
     except OSError:
@@ -47,7 +50,9 @@ def get_paired_reads(path=None):
             paired_files = pk.load(f)
         return paired_files
 
-    # all fastq files
+    # create the paired file list, write it into a file, and return it
+
+    # get the paths to all cleaned fastq files
     if path:
         files = glob(os.path.join(path, "*.cleaned.fastq"))
     else:
@@ -55,8 +60,10 @@ def get_paired_reads(path=None):
 
     paired_files = []
     # find paired files
-    while files:
-        # find the forward file, save file name, remove it from files array
+    loop_monitor = 0
+    n_max_loop = len(files) / 2 + 1
+    while files and loop_monitor < n_max_loop:
+        # find the forward file, save file name, remove it from files list
         for idx, f in enumerate(files):
             if "R1" in f:
                 f1 = f
@@ -71,7 +78,11 @@ def get_paired_reads(path=None):
                 paired_files.append(tuple((f1, f2)))
                 files.pop(idx)
                 break
+        # used to break the while loop if the files are not properly paired
+        # by mistake
+        loop_monitor += 1
 
+    # write the list of paired files into a file
     try:
         f = open(os.path.join(paths.temp, "star_temp"), "wb")
     except IOError:

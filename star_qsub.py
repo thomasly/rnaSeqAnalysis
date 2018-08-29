@@ -1,4 +1,5 @@
 import os, sys
+from glob import glob
 from paths import RnaSeqPath
 from utils import generate_bash_file, qsub
 from time import sleep
@@ -7,21 +8,32 @@ from time import sleep
 def star_qsub(job):
     """
     qsub star mission through star_sub.sh
+
+    input:
+    job - string, "indexing" or "mapping". choose the job you want to run.
+
+    outputs:
+    indexing - genome index files in the genome folder
+    mapping - sam and log files in star_outputs folder
     """
 
     paths = RnaSeqPath()
+    # STAR genome indexing job
     if job == "indexing":
+        # create the shell file
         shell_file = generate_bash_file(job_name="star_indexing", 
             threads=4, 
             out_log="star_indexing.out", 
             err_log="star_indexing.err", 
             commands = ["module load star/2.4.5a", 
                 "module load python/3.6.4", 
-                "python3 {} indexing".format(os.path.join(paths.scripts, \
-                                            'star.py'))])
+                "python3 {} indexing".format(
+                                        os.path.join(paths.scripts, 
+                                        'star.py'))])
+        # submit the shell file to hpc
         qsub(shell_file)
         
-
+    # STAR RNA-seq alignment job
     if job == "mapping":
 
         try:
@@ -29,28 +41,46 @@ def star_qsub(job):
         except IOError:
             pass
 
-        commands = []
-        commands.append("module load star/2.4.5a")
-        commands.append("module load python/3.6.4")
-        commands.append("python3 {} mapping $SGE_TASK_ID".format(os.path.join(paths.scripts, \
-                        'star.py')))
-        n_jobs = int(len(os.listdir(paths.trimmomatic_outputs)) / 5)
+        # shell commands
+        commands = [
+            "module load star/2.4.5a",
+            "module load python/3.6.4",
+            "python3 {} mapping $SGE_TASK_ID".format(
+                                os.path.join(
+                                    paths.scripts, 
+                                    'star.py'))
+        ]
+
+        # calculate job number based on the trimmomatic outputs
+        n_jobs = int(len(glob(os.path.join(
+                                paths.trimmomatic_outputs, 
+                                "*.cleaned.fastq"))) / 2)
+
+        # create shell file
         shell_file = generate_bash_file(job_name="star_mapping",
                         threads=4,
                         job_arr=n_jobs,
                         commands=commands)
+        # submit shell file to hpc
         qsub(shell_file)
 
-        commands = ["module load star/2.4.5a", 
-                "rm {}".format(os.path.join(paths.temp, '*'))
+        # clean temp files
+        commands = [ 
+                "rm -f {}".format(os.path.join(paths.temp, '*')),
+                "rm -f ./star_temp"
                 # "STAR --genomeLoad Remove"
                 ]   
-        shell_file = generate_bash_file(hold_jid='star_mapping', commands=commands)
+        shell_file = generate_bash_file(
+                            # submit after mapping jobs are finished
+                            hold_jid='star_mapping',  
+                            commands=commands)
         qsub(shell_file)
 
 
 if __name__ == "__main__":
-    option = input("Pleas choose the job you want to run (1 - indexing, 2 - mapping): ")
+    # choose indexing or mapping job
+    option = input(
+        "Pleas choose the job you want to run (1 - indexing, 2 - mapping): ")
     if option == "1":
         star_qsub("indexing")
     elif option == "2":
