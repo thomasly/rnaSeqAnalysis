@@ -24,8 +24,8 @@ def main(path=None):
 
     adapterfa = sys.argv[1]
     n_threads = cpu_count()
-    infq1 = os.path.join(paths.fastq, "LD207-12_2_S40_L005_R1_001.fastq.gz")
-    infq2 = os.path.join(paths.fastq, "LD207-12_2_S40_L005_R2_001.fastq.gz")
+    infq1 = os.path.join(paths.fastq, "PM324-0_2_S61_L007_R1_001.fastq.gz")
+    infq2 = os.path.join(paths.fastq, "PM324-0_2_S61_L007_R2_001.fastq.gz")
     outfq1 = make_output_name(infq1) + ".cleaned.fastq"
     outfq2 = make_output_name(infq2) + ".cleaned.fastq"
     outrmfq1 = make_output_name(infq1) + ".removed.fastq"

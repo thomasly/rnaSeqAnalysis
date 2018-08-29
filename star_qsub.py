@@ -25,7 +25,7 @@ def star_qsub(job):
             threads=4, 
             out_log="star_indexing.out", 
             err_log="star_indexing.err", 
-            commands = ["module load star/2.4.5a", 
+            commands = ["module load star", 
                 "module load python/3.6.4", 
                 "python3 {} indexing".format(
                                         os.path.join(paths.scripts, 
@@ -43,7 +43,7 @@ def star_qsub(job):
 
         # shell commands
         commands = [
-            "module load star/2.4.5a",
+            "module load star",
             "module load python/3.6.4",
             "python3 {} mapping $SGE_TASK_ID".format(
                                 os.path.join(
@@ -58,7 +58,7 @@ def star_qsub(job):
 
         # create shell file
         shell_file = generate_bash_file(job_name="star_mapping",
-                        threads=4,
+                        threads=32,
                         job_arr=n_jobs,
                         commands=commands)
         # submit shell file to hpc
