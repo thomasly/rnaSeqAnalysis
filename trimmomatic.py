@@ -85,10 +85,10 @@ def main(path=None):
     file_pair = paired_files_arr[idx]
     infq1 = file_pair[0]
     infq2 = file_pair[1]
-    outfq1 = make_output_name(infq1) + ".cleaned.fastq"
-    outfq2 = make_output_name(infq2) + ".cleaned.fastq"
-    outrmfq1 = make_output_name(infq1) + ".removed.fastq"
-    outrmfq2 = make_output_name(infq2) + ".removed.fastq"
+    outfq1 = make_output_name(infq1) + ".cleaned.fastq.gz"
+    outfq2 = make_output_name(infq2) + ".cleaned.fastq.gz"
+    outrmfq1 = make_output_name(infq1) + ".removed.fastq.gz"
+    outrmfq2 = make_output_name(infq2) + ".removed.fastq.gz"
     logfile = make_output_name(infq1) + ".log"
     print("infq1: {}".format(infq1))
     print("infq2: {}".format(infq2))
