@@ -4,8 +4,6 @@ import multiprocessing as mp
 from datetime import datetime
 from paths import RnaSeqPath
 
-def execute(command):
-    os.system(command)
 
 def main():
     start = datetime.now()
@@ -37,7 +35,7 @@ def main():
         command = "fastqc -o " + outputs_path + " " + f
         tasks.append(command)
 
-    pool.map(execute, tasks)
+    pool.map(lambda x: os.system(x), tasks)
     pool.close()
     pool.join()
 

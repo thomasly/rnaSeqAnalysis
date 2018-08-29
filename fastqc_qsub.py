@@ -1,11 +1,14 @@
 import os, sys
+from utils import generate_bash_file, qsub
 
+sh_file = generate_bash_file(
+    filename_base="fastqc",
+    job_name="rnaSeqFastqc",
+    commands=[
+        "module load fastqc",
+        "module load python/3.6.4",
+        "python3 fastqc.py $1"
+    ]
+)
 for t in range(5):
-    command = "qsub " + sys.argv[1].strip() + " " + str(t)
-    print("command ran: {}".format(command))
-# comm_list = ["qsub", "-t 1-5"]
-
-# comm_list.append(sys.argv[1].strip())
-
-# command = " ".join(comm_list)
-    os.system(command)
+    qsub(sh_file, [t])

@@ -89,7 +89,7 @@ def qsub(file_name, args=None):
     """
 
     if args:
-        args_str = ' '.join(args)
+        args_str = ' '.join(map(str, args))
         command = "qsub {} {}".format(file_name, args_str)
         os.system(command)
     else:
