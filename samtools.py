@@ -38,7 +38,7 @@ def samtools_filtering():
     except OSError:
         pass
 
-    bam_file = get_file_name(int(sys.argv[1]))
+    bam_file = get_file_name(int(sys.argv[1]) - 1)
     out_put_file = os.path.basename(bam_file).split(".")[0] + "_mapped.bam"
     out_put_file = os.path.join(paths.samtools_outputs, out_put_file)
     command = "samtools view -b -F 4 {} > {}".format(bam_file, out_put_file)
@@ -46,4 +46,3 @@ def samtools_filtering():
 
 if __name__ == "__main__":
     samtools_filtering()
-    
