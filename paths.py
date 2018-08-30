@@ -44,6 +44,7 @@ class RnaSeqPath:
         self.star_outputs = os.path.join(self.outputs_home, "star_outputs")
         self.samtools_outputs = os.path.join(self.outputs_home, "samtools_outputs")
         self.samtools_sorted = os.path.join(self.samtools_outputs, "sorted")
+        self.htseq_outputs = os.path.join(self.outputs_home, "htseq_outputs")
 
         # temp folder
         self.temp = os.path.join(self.scripts, "temp")
