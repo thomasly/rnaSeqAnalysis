@@ -45,7 +45,7 @@ commands=[]):
             string = "#$ -N {}\n".format(job_name)
             f.write(string)
         if threads:
-            string = "#$ -pe openmpi {}\n".format(threads)
+            string = "#$ -pe openmpi 1-{}\n".format(threads)
             f.write(string)
         if mem_free:
             string = "#$ -l mem_free={}\n".format(mem_free)

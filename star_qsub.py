@@ -58,7 +58,8 @@ def star_qsub(job):
 
         # create shell file
         shell_file = generate_bash_file(job_name="star_mapping",
-                        threads=32,
+                        mem_free="35G",
+                        threads=8,
                         job_arr=n_jobs,
                         commands=commands)
         # submit shell file to hpc
