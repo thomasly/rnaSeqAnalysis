@@ -22,3 +22,7 @@ def samtools_qsub():
     )
     qsub(shell_file)
     qsub(clean(after="samtools_filtering"))
+
+
+if __name__ == "__main__":
+    samtools_qsub()
