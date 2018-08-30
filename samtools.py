@@ -64,8 +64,7 @@ def samtools_sorting():
     bam_file = files[int(sys.argv[1]) - 1]
     output_file = os.path.basename(bam_file).split(".")[0] + "_sorted.bam"
 
-    command = "samtools sort -T {} -o {} -n {}".format(
-        paths.samtools_sorted, 
+    command = "samtools sort -o {} -n {}".format(
         output_file, 
         bam_file
     )
