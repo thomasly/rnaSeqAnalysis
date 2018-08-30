@@ -17,7 +17,12 @@ def samtools_qsub():
         commands=[
             "module load samtools",
             "module load python/3.6.4",
-            "python3 samtools.py $SGE_TASK_ID"
+            "python3 {} $SGE_TASK_ID".format(
+                os.path.join(
+                    paths.scripts,
+                    "samtools.py"
+                )
+            )
         ]
     )
     qsub(shell_file)
