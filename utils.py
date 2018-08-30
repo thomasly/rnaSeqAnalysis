@@ -51,6 +51,7 @@ commands=[]):
             string = "#$ -l mem_free={}\n".format(mem_free)
             f.write(string)
         if job_arr:
+            # string = "#$ -t {}\n".format(job_arr)
             string = "#$ -t 1-{}\n".format(job_arr)
             f.write(string)
 

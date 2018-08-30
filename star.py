@@ -116,7 +116,7 @@ def mapping():
         "--genomeDir" :  paths.hg38_l1_root,
         "--readFilesIn" : "{} {}".format(reads[0], reads[1]),
         "--outFileNamePrefix" : os.path.join(paths.star_outputs, out_put_prefix),
-        "--outSAMtype" : "BAM SortedByCoordinate",
+        "--outSAMtype" : "BAM Unsorted",
         "--genomeLoad" : "NoSharedMemory"
         # "--readFilesCommand" : "zcat"
     }
