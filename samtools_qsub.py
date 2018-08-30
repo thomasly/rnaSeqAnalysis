@@ -19,7 +19,7 @@ def samtools_qsub(opt):
         job_name="samtools_{}".format(opt),
         job_arr=n_jobs,
         commands=[
-            "module load samtools",
+            "module load samtools/0.1.19",
             "module load python/3.6.4",
             "python3 {} $SGE_TASK_ID {}".format(
                 os.path.join(
