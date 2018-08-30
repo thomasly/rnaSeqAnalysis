@@ -1,33 +1,38 @@
 from utils import generate_bash_file, clean, qsub
-import os
+import os, sys
 from paths import RnaSeqPath
 from glob import glob
 
-def samtools_qsub():
+def samtools_qsub(opt):
     """
     """
 
     paths = RnaSeqPath()
-    bam_files = os.path.join(paths.star_outputs, "*.bam")
+    if opt == "filtering":
+        bam_files = os.path.join(paths.star_outputs, "*.bam")
+    elif opt == "sorting":
+        bam_files = os.path.join(paths.samtools_outputs, "*.bam")
     n_jobs = len(glob(bam_files))
+    
     shell_file = generate_bash_file(
         filename_base="samtools",
-        job_name="samtools_filtering",
+        job_name="samtools_{}".format(opt),
         job_arr=n_jobs,
         commands=[
             "module load samtools",
             "module load python/3.6.4",
-            "python3 {} $SGE_TASK_ID".format(
+            "python3 {} $SGE_TASK_ID {}".format(
                 os.path.join(
                     paths.scripts,
                     "samtools.py"
-                )
+                ),
+                opt
             )
         ]
     )
     qsub(shell_file)
-    qsub(clean(after="samtools_filtering"))
+    qsub(clean(after="samtools_{}".format(opt)))
 
 
 if __name__ == "__main__":
-    samtools_qsub()
+    samtools_qsub(sys.argv[1])

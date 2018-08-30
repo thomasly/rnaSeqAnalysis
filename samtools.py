@@ -39,10 +39,41 @@ def samtools_filtering():
         pass
 
     bam_file = get_file_name(int(sys.argv[1]) - 1)
-    out_put_file = os.path.basename(bam_file).split(".")[0] + "_mapped.bam"
-    out_put_file = os.path.join(paths.samtools_outputs, out_put_file)
-    command = "samtools view -b -F 4 {} > {}".format(bam_file, out_put_file)
+    output_file = os.path.basename(bam_file).split(".")[0] + "_mapped.bam"
+    output_file = os.path.join(paths.samtools_outputs, output_file)
+    command = "samtools view -b -F 4 {} > {}".format(bam_file, output_file)
     os.system(command)
 
+def samtools_sorting():
+    """
+    """
+    paths = RnaSeqPath()
+    try:
+        os.mkdir(paths.samtools_sorted)
+    except OSError:
+        pass
+    
+    if os.path.exists("samtools_sort_temp"):
+        with open("samtools_sort_temp", "br") as f:
+            files = pk.load(f)
+    else:
+        files = glob(os.path.join(paths.samtools_outputs, "*mapped.bam"))
+        with open("samtools_sort_temp", "bw") as f:
+            pk.dump(files, f)
+
+    bam_file = files[int(sys.argv[1]) - 1]
+    output_file = os.path.basename(bam_file).split(".")[0] + "_sorted.bam"
+    output_file = os.path.join(paths.samtools_sorted, output_file)
+
+    command = "samtools sort -o {} -n {}".format(output_file, bam_file)
+    os.system(command)
+
+
 if __name__ == "__main__":
-    samtools_filtering()
+    if sys.argv[2] == "filtering":
+        samtools_filtering()
+    elif sys.argv[2] == "sorting":
+        samtools_sorting()
+    else:
+        print("Option ({}) not valid.".format(sys.argv[2]))
+
