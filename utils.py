@@ -146,9 +146,6 @@ def clean(after=None):
     return shell_file
 
 
-
-
-
 if __name__ == "__main__":
     generate_bash_file("test.sh", 
                     job_name="test_job", 
