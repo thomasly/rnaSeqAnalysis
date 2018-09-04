@@ -15,8 +15,9 @@ def htseq_count():
         pass
     
     bam_files = glob(os.path.join(paths.samtools_sorted, "*sorted.bam"))
-    alignment_files = ",".join(bam_files)
-    gff_file = os.path.join(paths.htseq_outputs, "htseq.gff")
+    alignment_files = " ".join(bam_files)
+    gff_file = paths.hg38_l1_annotation
+    output_file = os.path.join(paths.htseq_outputs, "htseq.out")
 
     shell_file = generate_bash_file(
         filename_base="htseq",
@@ -24,9 +25,10 @@ def htseq_count():
         commands=[
             "module load anaconda3",
             "source activate htseq",
-            "htseq-count -f bam -r name {} {}".format(
+            "htseq-count -f bam -r name {} {} > {}".format(
                 alignment_files,
-                gff_file
+                gff_file,
+                output_file
             )
         ]
     )
