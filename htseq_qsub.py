@@ -14,7 +14,7 @@ def htseq_count():
     except OSError:
         pass
     
-    bam_files = glob(os.path.join(paths.samtools_sorted, "*sorted.bam"))
+    bam_files = glob(os.path.join(paths.samtools_sorted, "*sorted.bam.bam"))
     alignment_files = " ".join(bam_files)
     gff_file = paths.hg38_l1_annotation
     output_file = os.path.join(paths.htseq_outputs, "htseq.out")
