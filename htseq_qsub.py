@@ -21,7 +21,7 @@ def htseq_count():
     for i, alignment_file in enumerate(bam_files):
         output_file = os.path.join(
             paths.htseq_outputs, "{}_htseq.out".format(
-                alignment_file.split(".")[0]
+                os.path.basename(alignment_file).split(".")[0]
             )
         )
         shell_file = generate_bash_file(
